@@ -12,6 +12,18 @@ int rBgt = 0;
 int gBgt = 0;
 int bBgt = 0;
 
+int limiter(int color) {
+  if(color < 8) {
+    color = 0;
+  }
+
+  if(color > 225) {
+      color = 255;
+  }
+
+  return color;
+}
+
 void setup() {
   pinMode(RED, OUTPUT);
   pinMode(GREEN, OUTPUT);
@@ -26,6 +38,10 @@ void loop() {
   rBgt = map(analogRead(RED_KNOB), 0, 1100, 0, 254);
   gBgt = map(analogRead(GREEN_KNOB), 0, 1100, 0, 254);
   bBgt = map(analogRead(BLUE_KNOB), 0, 1100, 0, 254);
+
+  rBgt = limiter(rBgt);
+  gBgt = limiter(gBgt);
+  bBgt = limiter(bBgt);
 
   analogWrite(RED, rBgt);
   analogWrite(GREEN, gBgt);
